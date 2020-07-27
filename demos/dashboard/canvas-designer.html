@@ -180,7 +180,7 @@ $("#h3").text("click on copy and share it")
 //var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
 var url = new URL(window.location.href);
 var c = url.searchParams.get("sessionid");
-inp.value="http://localhost:9001/demos/dashboard/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+inp.value="http://localhost:9001/demos/dashboard/canvas-designer.html?open=false&sessionid="+"publicRoomIdentifier=dashboard&userFullName=patient"
 $(".wrap").show()
 })
 $("#cpbtn").click(()=>{

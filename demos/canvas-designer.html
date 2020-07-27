@@ -179,7 +179,7 @@ $("#share").click(()=>{
 $("#h3").text("click on copy and share it")
 var url = new URL(window.location.href);
 var c = url.searchParams.get("sessionid");
-inp.value="http://localhost:9001/demos/dashboard/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+inp.value="https://rtcvideochat.herokuapp.com/demos/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
 $(".wrap").show()
 })
 $("#cpbtn").click(()=>{
