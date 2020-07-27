@@ -128,7 +128,7 @@ function serverHandler(request, response) {
 
             if (filename.search(/demos/g) === -1 && filename.search(/admin/g) === -1 && stats.isDirectory() && config.homePage === '/demos/index.html') {
                 if (response.redirect) {
-                    response.redirect('/demos/');
+                    response.redirect('/demos/dashboard/');
                 } else {
                     response.writeHead(301, {
                         'Location': '/demos/'
@@ -166,8 +166,8 @@ function serverHandler(request, response) {
                     filename += resolveURL('/demos/video-conference/index.html');
                 } else if (filename.indexOf(resolveURL('/demos')) !== -1) {
                     filename = filename.replace(resolveURL('/demos/'), '');
-                    filename = filename.replace(resolveURL('/demos'), '');
-                    filename += resolveURL('/demos/index.html');
+                    filename = filename.replace(resolveURL('/demos/dashboard/'), '');
+                    filename += resolveURL('/demos/dashboard/index.html');
                 } else {
                     filename += resolveURL(config.homePage);
                 }

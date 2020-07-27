@@ -5,13 +5,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard + Video Conferencing + Chat + File Sharing | RTCMultiConnection</title>
+  <title>Dashboard + Video Conferencing + Chat + File Sharing | VDC</title>
   <meta name="description" content="WebRTC Dashboard including support for canvas drawing, canvas data syncing, video conferencing, screen sharing and video conferencing. Including chat and file sharing.">
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
   <link rel="shortcut icon" href="/demos/logo.png">
   <link rel="stylesheet" type="text/css" href="/demos/css/emojionearea.min.css">
-
+  <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
   <script src="/demos/js/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <link href="/demos/css/bootstrap.min.css" rel="stylesheet">
   <script src="/node_modules/webrtc-adapter/out/adapter.js"></script>
   <script src="/dist/RTCMultiConnection.min.js"></script>
@@ -67,15 +71,16 @@ input[disabled], button[disabled] {
 }
 
 #other-videos {
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 #other-videos video {
-    width: 45%;
-    margin: 5px;
+    width: 48%;
+    margin: 2px;
     border: 1px solid black;
     padding: 1px;
     border-radius: 3px;
+    
 }
 
 #txt-chat-message {
@@ -137,12 +142,12 @@ hr {
     display: none;
 }
 
+
 .checkmark {
     display:none;
     width: 15px;
     vertical-align: middle;
 }
-
 #screen-viewer {
     position: fixed;
     top: 0;
@@ -152,21 +157,51 @@ hr {
     z-index: 9999999999999;
     display: none;
 }
+
 </style>
-
 <article>
+<div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 0;right: 0;left: 20%;height: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
+<div id="other-videos"></div>
 
-<div id="widget-container" style="position: fixed;bottom: 0;right: 0;left: 20%;height: 100%;border: 1px solid black; border-top:0; border-bottom: 0;"></div>
-<video id="screen-viewer" controls playsinline autoplay></video>
+<input type="button"class="btn btn-primary" value="Invite others" id="share" />
 
-<div style="width: 20%; height: 100%; position: absolute;left:0;">
-    <video id="main-video" controls playsinline autoplay></video>
-    <div id="other-videos"></div>
-    <hr>
+<div class="wrap" style="display: none;">
+    <input id="inp" type="text" />
+    <input type="button"class="copy-text"data-clipboard-target="#inp" value="copy" id="cpbtn" />
+<h4 id="h3" style="color: blue;"></h4>
+ </div>
+<script>
+    $(function(){
+  new Clipboard('.copy-text');
+});
+
+$("#share").click(()=>{
+$("#h3").text("click on copy and share it")
+//var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
+var url = new URL(window.location.href);
+var c = url.searchParams.get("sessionid");
+inp.value="http://localhost:9001/demos/dashboard/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+$(".wrap").show()
+})
+$("#cpbtn").click(()=>{
+    alertify.alert('Copy message', 'Copied successfuly!', function(){ alertify.success('Ok'); });
+
+})
+</script>
+</div>
+ 
+<div style="width: 20%; height: 100%; position: absolute;left:0;">  
+    <video id="main-video" controls autoplay></video>
+<video id="screen-viewer" controls  ></video>
+
+   <button id="mutevideo" class="btn btn-info" >Mute/Unmute video</button>
+   <br><hr>
+   <button id="muteaudio" class="btn btn-info" > Mute/Unmute audio</button>
+   
     <div style="padding: 5px 10px;">
+            
         <div id="onUserStatusChanged"></div>
     </div>
-
     <div style="margin-top: 20px;position: absolute;bottom: 0;background: white; padding-bottom: 20px; width: 94%">
         <div id="conversation-panel"></div>
         <div id="key-press" style="text-align: right; display: none; font-size: 11px;">
@@ -221,8 +256,8 @@ connection.maxParticipantsAllowed = 1000;
 var designer = new CanvasDesigner();
 
 // you can place widget.html anywhere
-designer.widgetHtmlURL = '/node_modules/canvas-designer/widget.html';
-designer.widgetJsURL = '/node_modules/canvas-designer/widget.min.js'
+designer.widgetHtmlURL = '/demos/try.html';
+//designer.widgetJsURL = '/node_modules/canvas-designer/widget.min.js'
 
 designer.addSyncListener(function(data) {
     connection.send(data);
@@ -352,10 +387,23 @@ connection.onmessage = function(event) {
 
     designer.syncData(event.data);
 };
+// var video_button = document.createElement("video_button");
+// video_button.appendChild(document.createTextNode("Toggle hold"));
 
+// video_button.video_onclick = function(){
+//   myStream.getVideoTracks()[0].enabled = !(myStream.getVideoTracks()[0].enabled);
+// }
+
+// var audio_button = document.createElement("audio_button");
+// video_button.appendChild(document.createTextNode("Toggle hold"));
+
+// audio_button.audio_onclick = function(){
+//   myStream.getAudioTracks()[0].enabled = !(myStream.getAudioTracks()[0].enabled);
+// }
 // extra code
 
 connection.onstream = function(event) {
+    
     if (event.stream.isScreen && !event.stream.canvasStream) {
         $('#screen-viewer').get(0).srcObject = event.stream;
         $('#screen-viewer').hide();
@@ -365,13 +413,24 @@ connection.onstream = function(event) {
         video.setAttribute('data-streamid', event.streamid);
         // video.style.display = 'none';
         if(event.type === 'local') {
-            video.muted = true;
-            video.volume = 0;
+            video.muted = false;
+            video.volume = 1;
         }
         video.srcObject = event.stream;
         $('#main-video').show();
+
+//  one more method stream.getTracks().forEach(function(track) {track.stop();});
+        //mute video of self  may need to put it somewhere else .check using nginx
+         document.getElementById("mutevideo").onclick = function() {
+            event.stream.getVideoTracks()[0].enabled =
+         !(event.stream.getVideoTracks()[0].enabled);    };
+         //mute audio self
+         document.getElementById("muteaudio").onclick = function() {
+            event.stream.getAudioTracks()[0].enabled =
+         !(event.stream.getAudioTracks()[0].enabled);    };
+
     } else {
-        event.mediaElement.controls = false;
+        event.mediaElement.controls = true;
 
         var otherVideos = document.querySelector('#other-videos');
         otherVideos.appendChild(event.mediaElement);
@@ -764,22 +823,22 @@ function replaceScreenTrack(stream) {
 }
 
 $('#btn-share-screen').click(function() {
-    if(!window.tempStream) {
-        alert('Screen sharing is not enabled.');
-        return;
-    }
+    // if(!window.tempStream) {
+    //     alert('Screen sharing is not enabled.');
+    //     return;
+    // }
 
     $('#btn-share-screen').hide();
 
     if(navigator.mediaDevices.getDisplayMedia) {
-        navigator.mediaDevices.getDisplayMedia(screen_constraints).then(stream => {
+        navigator.mediaDevices.getDisplayMedia({screen:true}).then(stream => {
             replaceScreenTrack(stream);
         }, error => {
             alert('Please make sure to use Edge 17 or higher.');
         });
     }
     else if(navigator.getDisplayMedia) {
-        navigator.getDisplayMedia(screen_constraints).then(stream => {
+        navigator.getDisplayMedia({screen:true}).then(stream => {
             replaceScreenTrack(stream);
         }, error => {
             alert('Please make sure to use Edge 17 or higher.');
@@ -792,3 +851,10 @@ $('#btn-share-screen').click(function() {
 </script>
 </body>
 </html>
+<!-- function myFunction() {
+    var copyText = document.getElementById("myInput");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999)
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
+  } -->

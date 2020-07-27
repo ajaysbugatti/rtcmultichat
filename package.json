@@ -50,6 +50,7 @@
   "dependencies": {
     "canvas-designer": "latest",
     "detectrtc": "latest",
+    "express": "^4.17.1",
     "fbr": "latest",
     "getstats": "latest",
     "multistreamsmixer": "latest",
