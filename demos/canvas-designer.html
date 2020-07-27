@@ -112,6 +112,15 @@ input[disabled], button[disabled] {
 #conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
     max-width: 100%;
 }
+/* #other-videos>#btns{
+    height: 128px;
+    left: 10%;
+    margin: -64px 0 0 -64px;
+    position: absolute;
+    top: 60%;
+    width: 128px;
+    z-index: 1; 
+} */
 
 #main-video {
     width: 100%;
@@ -161,7 +170,15 @@ hr {
 </style>
 <article>
 <div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 0;right: 0;left: 20%;height: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
-<div id="other-videos"></div>
+<div id="other-videos">
+    <video id="main-video" controls autoplay></video>
+     <!-- <div id="btns">
+        <button id="mutevideo" class="btn btn-info" ><img src="mv.png" style="width: 30px;height: 30px;"/> </button>   
+        <button id="muteaudio" class="btn btn-info" >  <img src="ma.png" style="width: 30px;height: 30px;"/>
+      </button>
+     </div> -->
+
+</div>
 
 <input type="button"class="btn btn-primary" value="Invite others" id="share" />
 
@@ -171,6 +188,9 @@ hr {
 <h4 id="h3" style="color: blue;"></h4>
  </div>
 <script>
+
+$("#main-video").append("$mute-video")
+
     $(function(){
   new Clipboard('.copy-text');
 });
@@ -190,17 +210,18 @@ $("#cpbtn").click(()=>{
 </div>
  
 <div style="width: 20%; height: 100%; position: absolute;left:0;">  
-    <video id="main-video" controls autoplay></video>
     <video id="screen-viewer" controls  ></video>
-    
-   <button id="mutevideo" class="btn btn-info" ><img src="mv.png" style="width: 40px;height: 40px;"/> </button>
+    <div id="btns">
+        <button id="mutevideo" class="btn btn-info" ><img src="mv.png" style="width: 40px;height: 40px;"/> </button>   
+        <button id="muteaudio" class="btn btn-info" >  <img src="ma.png" style="width: 40px;height: 40px;"/>
+      </button>
    
-   <button id="muteaudio" class="btn btn-info" >  <img src="ma.png" style="width: 40px;height: 40px;"/>
- </button>
    
     <div style="padding: 5px 10px;">
             
         <div id="onUserStatusChanged"></div>
+        
+     </div>
     </div>
     <div style="margin-top: 20px;position: absolute;bottom: 0;background: white; padding-bottom: 20px; width: 94%">
         <div id="conversation-panel"></div>
