@@ -3,9 +3,7 @@
   "preferGlobal": false,
   "version": "3.7.0",
   "author": {
-    "name": "Muaz Khan",
-    "email": "muazkh@gmail.com",
-    "url": "https://muazkhan.com/"
+    "name": "ajay dayma"
   },
   "description": "RTCMultiConnection is a WebRTC JavaScript wrapper library runs top over RTCPeerConnection API to support all possible peer-to-peer features.",
   "repository": {
@@ -17,7 +15,7 @@
     "contrib-prerequisites": "npm install grunt@0.4.5 && npm install grunt-bump@0.7.0 && npm install grunt-cli@0.1.13 && npm install grunt-contrib-clean@0.6.0 && npm install grunt-contrib-concat@0.5.1 && npm install grunt-contrib-copy@0.8.2 && npm install grunt-contrib-uglify@0.11.0 && npm install grunt-contrib-watch@1.1.0 && npm install grunt-jsbeautifier@0.2.10 && npm install grunt-replace@0.11.0 && npm install load-grunt-tasks@3.4.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": "12.17.0"
   },
   "main": "./dist/RTCMultiConnection.js",
   "keywords": [
@@ -43,9 +41,8 @@
     "rtcmulticonnection.js",
     "multirtc",
     "webrtc-experiment",
-    "javascript-library",
-    "muaz",
-    "muaz-khan"
+    "javascript-library"
+  
   ],
   "dependencies": {
     "canvas-designer": "latest",
@@ -62,10 +59,6 @@
   "analyze": false,
   "license": "MIT",
   "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/muaz-khan/RTCMultiConnection/issues",
-    "email": "muazkh@gmail.com"
-  },
   "homepage": "https://rtcmulticonnection.herokuapp.com/demos/",
   "tonicExampleFilename": "npm-test.js",
   "_from": "rtcmulticonnection@",
