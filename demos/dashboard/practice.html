@@ -1,0 +1,24 @@
+<a id="callurl" href="http://localhost:9001/demos/dashboard/canvas-designer.html?
+  open=true&sessionid=doc1room&publicRoomIdentifier=dashboard&userFullName=doctor1">Click on link when you are ready</a>  
+  <p id="text2"></p>
+    <button type="button"  class="btn btn-primary" id="startcall">start call</button>
+    <button type="button" class="btn btn-secondary" id="shareurl">Share url</button>
+    <p id="text3"></p>
+  <script>
+
+
+
+
+    document.getElementById("startcall").onclick=()=>{
+    document.getElementById("text2").innerHTML="hi"
+   var inp= document.createElement("INPUT")
+   inp.value="test"
+  $("#callurl").attr('href',"http://localhost:9001/demos/dashboard/")
+  $("#callurl").html="<p>click here to start video call<p>"
+  $("table").append(inp)
+    }
+    document.getElementById("shareurl").onclick=()=>{
+      url="dummy"
+    document.getElementById("text3").innerHTML="share this " + url+" url with person "
+    }
+  </script>

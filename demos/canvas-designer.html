@@ -73,6 +73,7 @@ input[disabled], button[disabled] {
 #other-videos {
     margin-top: 0px;
 }
+
 #content-desktop {display: block;}
 #content-mobile {display: none;}
 
@@ -82,6 +83,7 @@ input[disabled], button[disabled] {
 #content-mobile {display: block;}
 
 }
+
 #other-videos video {
     width: 48%;
     margin: 2px;
@@ -120,6 +122,18 @@ input[disabled], button[disabled] {
 #conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
     max-width: 100%;
 }
+
+
+/* #other-videos>#btns{
+    height: 128px;
+    left: 10%;
+    margin: -64px 0 0 -64px;
+    position: absolute;
+    top: 60%;
+    width: 128px;
+    z-index: 1; 
+} */
+
 
 #main-video {
     width: 100%;
@@ -168,8 +182,13 @@ hr {
 
 </style>
 <article>
+
 <div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 20%;right: 50%;left: 0;height: 50%;width: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
 <div id="other-videos"></div>
+      <video id="main-video" controls autoplay></video>
+
+</div>
+
 
 <input type="button"class="btn btn-primary" value="Invite others" id="share" />
 
@@ -179,16 +198,26 @@ hr {
 <h4 id="h3" style="color: blue;"></h4>
  </div>
 <script>
+
+$("#main-video").append("$mute-video")
+
+
     $(function(){
   new Clipboard('.copy-text');
 });
 
 $("#share").click(()=>{
 $("#h3").text("click on copy and share it")
+
 //var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
 var url = new URL(window.location.href);
 var c = url.searchParams.get("sessionid");
 inp.value="http://localhost:9001/demos/dashboard/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+=======
+var url = new URL(window.location.href);
+var c = url.searchParams.get("sessionid");
+inp.value="https://rtcvideochat.herokuapp.com/demos/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+
 $(".wrap").show()
 })
 $("#cpbtn").click(()=>{
@@ -198,6 +227,7 @@ $("#cpbtn").click(()=>{
 </script>
 </div>
  
+
 <div id="content-desktop" style="width: 40%; height: 100%; position: absolute;left:0;">  
     <video id="main-video" controls autoplay></video>
 <video id="screen-viewer" controls  ></video>
@@ -205,10 +235,24 @@ $("#cpbtn").click(()=>{
    <button id="mutevideo" class="btn btn-info" >Mute/Unmute video</button>
    <br><hr>
    <button id="muteaudio" class="btn btn-info" > Mute/Unmute audio</button>
+
+<div style="width: 20%; height: 100%; position: absolute;left:0;">  
+    <video id="screen-viewer" controls  ></video>
+    <div id="btns">
+        <button id="mutevideo" class="btn btn-info" ><img src="mv.png" style="width: 40px;height: 40px;"/> </button>   
+        <button id="muteaudio" class="btn btn-info" >  <img src="ma.png" style="width: 40px;height: 40px;"/>
+      </button>
+   
+
    
     <div style="padding: 5px 10px;">
             
         <div id="onUserStatusChanged"></div>
+
+
+        
+     </div>
+
     </div>
     <div style="margin-top: 20px;position: absolute;bottom: 0;background: white; padding-bottom: 20px; width: 94%">
         <div id="conversation-panel"></div>
@@ -224,6 +268,7 @@ $("#cpbtn").click(()=>{
 
     <canvas id="temp-stream-canvas" style="display: none;"></canvas>
 </div>
+
 
 <div id ="content-mobile" style="width: 60%; height: 40%; position: absolute;top:10; display: block; margin-left: auto; margin-bottom: auto; align-items: center;left: 30%;right: 10%;">  
     <video id="main-video" controls autoplay></video>
@@ -257,6 +302,7 @@ $("#cpbtn").click(()=>{
 
     <canvas id="temp-stream-canvas" style="display: none;"></canvas>
 </div>
+
 
 </article>
 
@@ -455,8 +501,10 @@ connection.onstream = function(event) {
         video.setAttribute('data-streamid', event.streamid);
         // video.style.display = 'none';
         if(event.type === 'local') {
-            video.muted = false;
-            video.volume = 1;
+
+            video.muted = true;
+            video.volume = 0;
+
         }
         video.srcObject = event.stream;
         $('#main-video').show();

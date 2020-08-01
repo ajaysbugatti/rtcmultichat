@@ -293,7 +293,7 @@ input[disabled], button[disabled] {
 </head>
 <body>
   <header style="margin-bottom: 20px;">
-    <img class="logo" src="/demos/vdc_.png" alt="RTCMultiConnection" /> <span class="logo-text">VDC Video chat</span>
+    <img class="logo" src="/demos/vdc_.png" alt="RTCMultiConnection" /> <span class="logo-text">Multipeer Video chat</span>
 
     <div style="float: right;margin-top: 15px;">
       <button class="btn btn-primary" data-toggle="modal" data-target="#startRoomModel">Create A New Room</button>
@@ -301,7 +301,7 @@ input[disabled], button[disabled] {
 <script>
   function createroom() {
     var c=Math.floor((Math.random() * 1000000) + 1);
-    var str="http://localhost:9001/demos/canvas-designer.html?open=true&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=doctor"
+    var str="https://rtcvideochat.herokuapp.com/demos/canvas-designer.html?open=true&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=doctor"
     window.open(str)
   }
 </script>
@@ -452,7 +452,8 @@ input[disabled], button[disabled] {
     </table>
   </section>
 
-  <footer style="text-align: center;">Dashboard + Video Conferencing + Chat + File Sharing</footer>
+  <footer style="text-align: center;">Made with <span style="color: #e25555;">&#9829;</span>in India by VDC team
+  </footer>
 
 <script>
 // this object is used to get uniquie rooms based on this demo
