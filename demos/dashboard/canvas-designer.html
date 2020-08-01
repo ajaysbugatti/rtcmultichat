@@ -160,7 +160,7 @@ hr {
 
 </style>
 <article>
-<div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 0;right: 0;left: 20%;height: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
+<div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 20%;right: 50%;left: 0;height: 20%;width: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
 <div id="other-videos"></div>
 
 <input type="button"class="btn btn-primary" value="Invite others" id="share" />
@@ -190,23 +190,22 @@ $("#cpbtn").click(()=>{
 </script>
 </div>
  
-<div style="width: 20%; height: 100%; position: absolute;left:0;">  
+<div style="width: 80%; height: 20%; position: absolute;bottom:0;">  
     <video id="main-video" controls autoplay></video>
 <video id="screen-viewer" controls  ></video>
 
    <button id="mutevideo" class="btn btn-info" >Mute/Unmute video</button>
-   <br><hr>
    <button id="muteaudio" class="btn btn-info" > Mute/Unmute audio</button>
    
-    <div style="padding: 5px 10px;">
+    <div style="padding: 5px 5px;">
             
         <div id="onUserStatusChanged"></div>
     </div>
-    <div style="margin-top: 20px;position: absolute;bottom: 0;background: white; padding-bottom: 20px; width: 94%">
+    <div style="margin-top: 100px;position: absolute;top: 0;background: rgb(50, 14, 182); padding-bottom: 20px; width: 60%">
         <div id="conversation-panel"></div>
         <div id="key-press" style="text-align: right; display: none; font-size: 11px;">
-            <span style="vertical-align: middle;"></span>
-            <img src="https://www.webrtc-experiment.com/images/key-press.gif" style="height: 12px; vertical-align: middle;">
+            <span style="vertical-align: bottom;"></span>
+            <img src="https://www.webrtc-experiment.com/images/key-press.gif" style="height: 12px; vertical-align: right;">
         </div>
         <textarea id="txt-chat-message"></textarea>
         <button class="btn btn-primary" id="btn-chat-message" disabled>Send</button>

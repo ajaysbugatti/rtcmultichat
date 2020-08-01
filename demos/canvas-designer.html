@@ -74,6 +74,16 @@ input[disabled], button[disabled] {
     margin-top: 0px;
 }
 
+#content-desktop {display: block;}
+#content-mobile {display: none;}
+
+@media screen and (max-width: 768px) {
+
+#content-desktop {display: none;}
+#content-mobile {display: block;}
+
+}
+
 #other-videos video {
     width: 48%;
     margin: 2px;
@@ -112,6 +122,8 @@ input[disabled], button[disabled] {
 #conversation-panel .message img, #conversation-panel .message video, #conversation-panel .message iframe {
     max-width: 100%;
 }
+
+
 /* #other-videos>#btns{
     height: 128px;
     left: 10%;
@@ -121,6 +133,7 @@ input[disabled], button[disabled] {
     width: 128px;
     z-index: 1; 
 } */
+
 
 #main-video {
     width: 100%;
@@ -169,16 +182,13 @@ hr {
 
 </style>
 <article>
-<div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 0;right: 0;left: 20%;height: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
-<div id="other-videos">
-    <video id="main-video" controls autoplay></video>
-     <!-- <div id="btns">
-        <button id="mutevideo" class="btn btn-info" ><img src="mv.png" style="width: 30px;height: 30px;"/> </button>   
-        <button id="muteaudio" class="btn btn-info" >  <img src="ma.png" style="width: 30px;height: 30px;"/>
-      </button>
-     </div> -->
+
+<div id="widget-container" style="overflow: scroll;  position: fixed;bottom: 20%;right: 50%;left: 0;height: 50%;width: 100%;border: 1px solid black; border-top:0; border-bottom: 0;">
+<div id="other-videos"></div>
+      <video id="main-video" controls autoplay></video>
 
 </div>
+
 
 <input type="button"class="btn btn-primary" value="Invite others" id="share" />
 
@@ -191,15 +201,23 @@ hr {
 
 $("#main-video").append("$mute-video")
 
+
     $(function(){
   new Clipboard('.copy-text');
 });
 
 $("#share").click(()=>{
 $("#h3").text("click on copy and share it")
+
+//var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
+var url = new URL(window.location.href);
+var c = url.searchParams.get("sessionid");
+inp.value="http://localhost:9001/demos/dashboard/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+=======
 var url = new URL(window.location.href);
 var c = url.searchParams.get("sessionid");
 inp.value="https://rtcvideochat.herokuapp.com/demos/canvas-designer.html?open=false&sessionid="+c+"&publicRoomIdentifier=dashboard&userFullName=patient"
+
 $(".wrap").show()
 })
 $("#cpbtn").click(()=>{
@@ -209,6 +227,15 @@ $("#cpbtn").click(()=>{
 </script>
 </div>
  
+
+<div id="content-desktop" style="width: 40%; height: 100%; position: absolute;left:0;">  
+    <video id="main-video" controls autoplay></video>
+<video id="screen-viewer" controls  ></video>
+
+   <button id="mutevideo" class="btn btn-info" >Mute/Unmute video</button>
+   <br><hr>
+   <button id="muteaudio" class="btn btn-info" > Mute/Unmute audio</button>
+
 <div style="width: 20%; height: 100%; position: absolute;left:0;">  
     <video id="screen-viewer" controls  ></video>
     <div id="btns">
@@ -216,12 +243,16 @@ $("#cpbtn").click(()=>{
         <button id="muteaudio" class="btn btn-info" >  <img src="ma.png" style="width: 40px;height: 40px;"/>
       </button>
    
+
    
     <div style="padding: 5px 10px;">
             
         <div id="onUserStatusChanged"></div>
+
+
         
      </div>
+
     </div>
     <div style="margin-top: 20px;position: absolute;bottom: 0;background: white; padding-bottom: 20px; width: 94%">
         <div id="conversation-panel"></div>
@@ -237,6 +268,42 @@ $("#cpbtn").click(()=>{
 
     <canvas id="temp-stream-canvas" style="display: none;"></canvas>
 </div>
+
+
+<div id ="content-mobile" style="width: 60%; height: 40%; position: absolute;top:10; display: block; margin-left: auto; margin-bottom: auto; align-items: center;left: 30%;right: 10%;">  
+    <video id="main-video" controls autoplay></video>
+<video id="screen-viewer" controls  ></video>
+
+   <button id="mutevideo" class="btn btn-info" >Mute/Unmute video</button>
+   <button id="muteaudio" class="btn btn-info" > Mute/Unmute audio</button>
+   <input type="button"class="btn btn-primary" value="Invite others" id="share" />
+
+<div class="wrap" style="display: none;">
+    <input id="inp" type="text" />
+    <input type="button"class="copy-text"data-clipboard-target="#inp" value="copy" id="cpbtn" />
+<h4 id="h3" style="color: blue;"></h4>
+ </div>
+   
+    <div style="padding: 10px 5px;">
+            
+        <div id="onUserStatusChanged"></div>
+    </div>
+    <div id="content-mobile" style="margin-top: 10px;position: absolute;bottom: 10;background: rgb(50, 14, 182); padding-bottom: 1px; width: 100%;height: 40%;">
+        <div id="conversation-panel"></div>
+        <div id="key-press" style="display: none; font-size: 11px;">
+            <span style="vertical-align: bottom;"></span>
+            <img src="https://www.webrtc-experiment.com/images/key-press.gif" style="height: 60px; vertical-align: right;">
+        </div>
+        <textarea id="txt-chat-message"></textarea>
+        <button class="btn btn-primary" id="btn-chat-message" disabled>Send</button>
+        <img id="btn-attach-file" src="https://www.webrtc-experiment.com/images/attach-file.png" title="Attach a File">
+        <img id="btn-share-screen" src="https://www.webrtc-experiment.com/images/share-screen.png" title="Share Your Screen">
+    </div>
+
+    <canvas id="temp-stream-canvas" style="display: none;"></canvas>
+</div>
+
+
 </article>
 
 <script>
@@ -434,8 +501,10 @@ connection.onstream = function(event) {
         video.setAttribute('data-streamid', event.streamid);
         // video.style.display = 'none';
         if(event.type === 'local') {
+
             video.muted = true;
             video.volume = 0;
+
         }
         video.srcObject = event.stream;
         $('#main-video').show();
