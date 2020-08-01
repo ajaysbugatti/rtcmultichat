@@ -73,7 +73,15 @@ input[disabled], button[disabled] {
 #other-videos {
     margin-top: 0px;
 }
+#content-desktop {display: block;}
+#content-mobile {display: none;}
 
+@media screen and (max-width: 768px) {
+
+#content-desktop {display: none;}
+#content-mobile {display: block;}
+
+}
 #other-videos video {
     width: 48%;
     margin: 2px;
@@ -190,7 +198,34 @@ $("#cpbtn").click(()=>{
 </script>
 </div>
  
-<div style="width: 60%; height: 40%; position: absolute;top:10; display: block; margin-left: auto; margin-bottom: auto; align-items: center;left: 30%;right: 10%;">  
+<div id="content-desktop" style="width: 40%; height: 100%; position: absolute;left:0;">  
+    <video id="main-video" controls autoplay></video>
+<video id="screen-viewer" controls  ></video>
+
+   <button id="mutevideo" class="btn btn-info" >Mute/Unmute video</button>
+   <br><hr>
+   <button id="muteaudio" class="btn btn-info" > Mute/Unmute audio</button>
+   
+    <div style="padding: 5px 10px;">
+            
+        <div id="onUserStatusChanged"></div>
+    </div>
+    <div style="margin-top: 20px;position: absolute;bottom: 0;background: white; padding-bottom: 20px; width: 94%">
+        <div id="conversation-panel"></div>
+        <div id="key-press" style="text-align: right; display: none; font-size: 11px;">
+            <span style="vertical-align: middle;"></span>
+            <img src="https://www.webrtc-experiment.com/images/key-press.gif" style="height: 12px; vertical-align: middle;">
+        </div>
+        <textarea id="txt-chat-message"></textarea>
+        <button class="btn btn-primary" id="btn-chat-message" disabled>Send</button>
+        <img id="btn-attach-file" src="https://www.webrtc-experiment.com/images/attach-file.png" title="Attach a File">
+        <img id="btn-share-screen" src="https://www.webrtc-experiment.com/images/share-screen.png" title="Share Your Screen">
+    </div>
+
+    <canvas id="temp-stream-canvas" style="display: none;"></canvas>
+</div>
+
+<div id ="content-mobile" style="width: 60%; height: 40%; position: absolute;top:10; display: block; margin-left: auto; margin-bottom: auto; align-items: center;left: 30%;right: 10%;">  
     <video id="main-video" controls autoplay></video>
 <video id="screen-viewer" controls  ></video>
 
@@ -208,7 +243,7 @@ $("#cpbtn").click(()=>{
             
         <div id="onUserStatusChanged"></div>
     </div>
-    <div style="margin-top: 10px;position: absolute;bottom: 10;background: rgb(50, 14, 182); padding-bottom: 1px; width: 100%;height: 40%;">
+    <div id="content-mobile" style="margin-top: 10px;position: absolute;bottom: 10;background: rgb(50, 14, 182); padding-bottom: 1px; width: 100%;height: 40%;">
         <div id="conversation-panel"></div>
         <div id="key-press" style="display: none; font-size: 11px;">
             <span style="vertical-align: bottom;"></span>
@@ -222,6 +257,7 @@ $("#cpbtn").click(()=>{
 
     <canvas id="temp-stream-canvas" style="display: none;"></canvas>
 </div>
+
 </article>
 
 <script>
